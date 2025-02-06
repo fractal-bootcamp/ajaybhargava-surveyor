@@ -1,0 +1,17 @@
+{
+  "name": "surveyor",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "database": "docker run --name drizzle-postgres -e POSTGRES_PASSWORD=mypassword -d -p 10241:5432 postgres",
+    "database:stop": "docker stop drizzle-postgres",
+    "database:kill": "docker rm drizzle-postgres",
+    "server:dev": "bun --watch src/server.tsx"
+  }
+}

@@ -10,21 +10,22 @@ if (!process.env.DATABASE_URL) {
 
 const db = drizzle(process.env.DATABASE_URL);
 
-const getSurveys = async () => {
-	try {
-		const survey_seed = await db.select().from(surveys);
-		console.log("Fetched Surveys", survey_seed);
-		return survey_seed;
-	} catch (error) {
-		console.log("Error catching users.", error);
-		throw error;
-	}
+const getAllSurveys = async () => {
+	const results = await db.select().from(surveys);
+	return results;
 };
 
 const app = new Elysia()
 	.get("/", () => "Hello Elysia")
-	.get("/surveys", () => getSurveys())
-	.use(cors())
+	.get("/surveys", () => getAllSurveys())
+	.use(
+		cors({
+			origin: "localhost:5173",
+			methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+			allowedHeaders: ["Content-Type", "Authorization"],
+			credentials: true,
+		}),
+	)
 	.listen(3000);
 
 console.log(

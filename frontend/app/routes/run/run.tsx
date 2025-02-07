@@ -1,7 +1,6 @@
 import type { Route } from "../../+types/root";
 import { useLoaderData, useParams } from "react-router";
 import { treaty } from "@elysiajs/eden";
-import { redirect, NavLink } from "react-router";
 import type { App } from "../../../../src/server";
 
 const client = treaty<App>("localhost:3000");

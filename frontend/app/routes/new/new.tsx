@@ -4,7 +4,9 @@ import { treaty } from "@elysiajs/eden";
 import { randomUUID } from "node:crypto";
 import { redirect, NavLink } from "react-router";
 
-const client = treaty<App>("localhost:3000");
+const client = treaty<App>(
+	process.env.RAILWAY_PUBLIC_DOMAIN ?? "localhost:3000",
+);
 
 export function meta() {
 	return [

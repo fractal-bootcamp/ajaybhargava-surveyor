@@ -4,7 +4,9 @@ import type { App } from "../../../src/server";
 import { useLoaderData } from "react-router";
 import { Surveys } from "~/home/AllSurveys";
 
-const client = treaty<App>("localhost:3000");
+const client = treaty<App>(
+	process.env.RAILWAY_PUBLIC_DOMAIN ?? "localhost:3000",
+);
 
 export async function loader() {
 	const { data } = await client.surveys.get();

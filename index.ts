@@ -12,10 +12,10 @@ if (!process.env.DATABASE_URL) {
 }
 
 console.log(process.env.DATABASE_URL)
+console.log(process.env.RAILWAY_PUBLIC_DOMAIN)
 
 const db = drizzle(process.env.DATABASE_URL);
 
-// Add this function to test the connection
 const testConnection = async () => {
 	try {
 		const result = await db.execute(sql`SELECT NOW()`);

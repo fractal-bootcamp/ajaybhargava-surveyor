@@ -80,7 +80,7 @@ const app = new Elysia()
 	)
 	.use(
 		cors({
-			origin: "localhost:5173",
+			origin: ["localhost:5173", ...(process.env.RAILWAY_PUBLIC_DOMAIN ? [process.env.RAILWAY_PUBLIC_DOMAIN] : [])],
 			methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 			allowedHeaders: ["Content-Type", "Authorization"],
 			credentials: true,

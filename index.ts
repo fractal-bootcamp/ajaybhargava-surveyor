@@ -5,6 +5,7 @@ import { surveys, subquestion, answers } from "./src/db/schema";
 import { cors } from "@elysiajs/cors";
 import { eq } from "drizzle-orm";
 import { randomUUID } from "node:crypto";
+import { sql } from "drizzle-orm";
 
 if (!process.env.DATABASE_URL) {
 	throw new Error("DATABASE_URL is not set");
@@ -13,6 +14,21 @@ if (!process.env.DATABASE_URL) {
 console.log(process.env.DATABASE_URL)
 
 const db = drizzle(process.env.DATABASE_URL);
+
+// Add this function to test the connection
+const testConnection = async () => {
+	try {
+		const result = await db.execute(sql`SELECT NOW()`);
+		console.log('✅ Database connected successfully');
+		return true;
+	} catch (error) {
+		console.error('❌ Database connection failed:', error);
+		return false;
+	}
+};
+
+// You can call this right after creating the db instance
+await testConnection();
 
 const getAllSurveys = async () => {
 	const results = await db.select().from(surveys);

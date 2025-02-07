@@ -18,6 +18,7 @@
     "react-router": "^7.1.5"
   },
   "devDependencies": {
+    "@netlify/vite-plugin-react-router": "^1.0.0",
     "@react-router/dev": "^7.1.5",
     "@tailwindcss/vite": "^4.0.0",
     "@types/bun": "^1.2.2",

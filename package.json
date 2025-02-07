@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@elysiajs/cors": "^1.2.0",
+    "crypto": "^1.0.1",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.39.2",
     "elysia": "^1.2.12",

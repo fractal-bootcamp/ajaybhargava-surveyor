@@ -1,5 +1,5 @@
 {
-  "id": "d7aaf455-adec-466c-9e4a-2f9d0c329932",
+  "id": "c60d973d-e76e-425b-a479-557edcab62cb",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -10,13 +10,13 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "integer",
+          "type": "uuid",
           "primaryKey": true,
           "notNull": true
         },
         "survey_id": {
           "name": "survey_id",
-          "type": "integer",
+          "type": "uuid",
           "primaryKey": false,
           "notNull": false
         },
@@ -43,9 +43,68 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "answers_survey_id_surveys_id_fk": {
-          "name": "answers_survey_id_surveys_id_fk",
+        "answers_survey_id_subquestion_id_fk": {
+          "name": "answers_survey_id_subquestion_id_fk",
           "tableFrom": "answers",
+          "tableTo": "subquestion",
+          "columnsFrom": [
+            "survey_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.subquestion": {
+      "name": "subquestion",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "survey_id": {
+          "name": "survey_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "subquestion": {
+          "name": "subquestion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "subquestion_survey_id_surveys_id_fk": {
+          "name": "subquestion_survey_id_surveys_id_fk",
+          "tableFrom": "subquestion",
           "tableTo": "surveys",
           "columnsFrom": [
             "survey_id"
@@ -69,7 +128,7 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "integer",
+          "type": "uuid",
           "primaryKey": true,
           "notNull": true
         },

@@ -2,7 +2,7 @@ import type { Route } from "../+types/root";
 import { treaty } from "@elysiajs/eden";
 import type { App } from "../../../src/server";
 import { useLoaderData } from "react-router";
-import { Surveys } from "~/surveys/AllSurveys";
+import { Surveys } from "~/home/AllSurveys";
 
 const client = treaty<App>("localhost:3000");
 
@@ -21,6 +21,5 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home({ actionData }: Route.ComponentProps) {
 	const data = useLoaderData<typeof loader>();
-
 	return <Surveys survey={data || []} />;
 }

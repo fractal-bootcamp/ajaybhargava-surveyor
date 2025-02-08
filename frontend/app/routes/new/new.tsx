@@ -1,12 +1,7 @@
 import type { Route } from "../../+types/root";
-import type { App } from "../../../../src/server";
-import { treaty } from "@elysiajs/eden";
 import { randomUUID } from "node:crypto";
 import { redirect, NavLink } from "react-router";
-
-const client = treaty<App>(
-	process.env.RAILWAY_PUBLIC_DOMAIN ?? "localhost:3000",
-);
+import { client } from "../../treaty";
 
 export function meta() {
 	return [

@@ -1,10 +1,7 @@
 import type { Route } from "../+types/root";
-import { treaty } from "@elysiajs/eden";
-import type { App } from "../../../src/server";
+import { client } from "../treaty";
 import { useLoaderData } from "react-router";
 import { Surveys } from "~/home/AllSurveys";
-
-const client = treaty<App>(import.meta.env.VITE_RAILWAY_PUBLIC_URL);
 
 export async function loader() {
 	const { data } = await client.surveys.get();

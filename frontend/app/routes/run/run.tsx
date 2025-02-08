@@ -1,11 +1,6 @@
 import type { Route } from "../../+types/root";
 import { useLoaderData, useParams } from "react-router";
-import { treaty } from "@elysiajs/eden";
-import type { App } from "../../../../src/server";
-
-const client = treaty<App>(
-	process.env.RAILWAY_PUBLIC_DOMAIN ?? "localhost:3000",
-);
+import { client } from "../../treaty";
 
 export async function loader({ params }: Route.LoaderArgs) {
 	if (!params.id) throw new Error("Survey ID is required");

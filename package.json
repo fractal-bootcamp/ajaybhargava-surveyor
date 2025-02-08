@@ -15,10 +15,11 @@
     "database": "docker run --name drizzle-postgres -e POSTGRES_PASSWORD=mypassword -d -p 10241:5432 postgres",
     "database:stop": "docker stop drizzle-postgres",
     "database:kill": "docker rm drizzle-postgres",
-    "server:dev": "bun --watch src/server.tsx"
+    "server:dev": "bun --watch index.ts"
   },
   "dependencies": {
     "@elysiajs/cors": "^1.2.0",
+    "crypto": "^1.0.1",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.39.2",
     "elysia": "^1.2.12",

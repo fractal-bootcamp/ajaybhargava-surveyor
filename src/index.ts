@@ -47,22 +47,22 @@ async function main() {
 	const answerData: (typeof answers.$inferInsert)[] = [
 		{
 			id: randomUUID(),
-			surveyId: "103eb2c4-4c1a-4686-a386-c594e01e6466",
+			subquestionId: "103eb2c4-4c1a-4686-a386-c594e01e6466",
 			answer: "Yes, absolutely!"
 		},
 		{
 			id: randomUUID(),
-			surveyId: "9165a75b-15c6-4415-bff7-59718663d617",
+			subquestionId: "9165a75b-15c6-4415-bff7-59718663d617",
 			answer: "Mandarin"
 		},
 		{
 			id: randomUUID(),
-			surveyId: "7656b08b-d4a3-4406-8683-3a6c0a976c2b",
+			subquestionId: "7656b08b-d4a3-4406-8683-3a6c0a976c2b",
 			answer: "English"
 		},
 		{
 			id: randomUUID(),
-			surveyId: "79bc85e6-24da-4e9a-9cfb-54856b7acce0",
+			subquestionId: "79bc85e6-24da-4e9a-9cfb-54856b7acce0",
 			answer: "Because I think its full of puns." 
 		}
 	]

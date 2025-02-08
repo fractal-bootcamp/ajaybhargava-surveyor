@@ -46,17 +46,13 @@ const getSurveyQuestions = async (id: string) => {
 	return questions;
 };
 
-const addAnswers = async (userAnswers: Record<string, string>) => {
-	console.log(userAnswers);
-	await Promise.all(
-		Object.entries(userAnswers).map(([surveyId, answer]) =>
-			db.insert(answers).values({
-				id: randomUUID(),
-				surveyId,
-				answer: answer.toString(),
-			}),
-		),
-	);
+const addAnswers = async (answer: { subquestionId: string; answer: string }) => {
+	console.log(answer);
+	await db.insert(answers).values({
+		id: randomUUID(),
+		subquestionId: answer.subquestionId,
+		answer: answer.answer.toString(),
+	});
 	console.log("Insertion successful.");
 };
 
@@ -84,7 +80,7 @@ const app = new Elysia()
 	.post(
 		"/answers",
 		({ body }) => {
-			addAnswers(body as Record<string, string>);
+			addAnswers(body);
 			return { success: true };
 		},
 		{

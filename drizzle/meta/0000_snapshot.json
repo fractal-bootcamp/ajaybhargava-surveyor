@@ -1,5 +1,5 @@
 {
-  "id": "c60d973d-e76e-425b-a479-557edcab62cb",
+  "id": "1ea514b6-8cd8-43b5-b83b-c86d63de419c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -14,8 +14,8 @@
           "primaryKey": true,
           "notNull": true
         },
-        "survey_id": {
-          "name": "survey_id",
+        "subquestion_id": {
+          "name": "subquestion_id",
           "type": "uuid",
           "primaryKey": false,
           "notNull": false
@@ -43,12 +43,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "answers_survey_id_subquestion_id_fk": {
-          "name": "answers_survey_id_subquestion_id_fk",
+        "answers_subquestion_id_subquestion_id_fk": {
+          "name": "answers_subquestion_id_subquestion_id_fk",
           "tableFrom": "answers",
           "tableTo": "subquestion",
           "columnsFrom": [
-            "survey_id"
+            "subquestion_id"
           ],
           "columnsTo": [
             "id"

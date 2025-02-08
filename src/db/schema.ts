@@ -17,7 +17,7 @@ export const subquestion = pgTable("subquestion", {
 
 export const answers = pgTable("answers", {
     id: uuid("id").primaryKey(),
-    surveyId: uuid("survey_id").references(() => subquestion.id),
+    subquestionId: uuid("subquestion_id").references(() => subquestion.id),
     answer: text(),
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at").notNull().defaultNow(),

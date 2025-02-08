@@ -1,5 +1,5 @@
 import type { Route } from "../../+types/root";
-import { useLoaderData, useParams } from "react-router";
+import { useLoaderData, useParams, redirect, NavLink } from "react-router";
 import { client } from "../../treaty";
 
 export async function loader({ params }: Route.LoaderArgs) {
@@ -28,6 +28,7 @@ export async function action({ request }: Route.ActionArgs) {
 	if (!response.every((r) => r.data?.success)) {
 		throw new Error("Failed to Create Survey!");
 	}
+	redirect("/");
 }
 
 export function meta() {
@@ -66,12 +67,20 @@ export default function New({ actionData }: Route.ComponentProps) {
 							/>
 						</div>
 					))}
-					<button
-						type="submit"
-						className="bg-blue-500 text-white py-3 px-6 rounded-lg text-xl hover:bg-blue-600 transition-colors"
-					>
-						Submit Survey
-					</button>
+					<div className="flex gap-4 justify-center">
+						<button
+							type="submit"
+							className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl text-xl min-w-[140px] text-center transition-colors"
+						>
+							Submit Survey
+						</button>
+						<NavLink
+							to={"/"}
+							className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl text-xl min-w-[140px] text-center transition-colors"
+						>
+							Return to Forms
+						</NavLink>
+					</div>
 				</form>
 			</div>
 		</main>

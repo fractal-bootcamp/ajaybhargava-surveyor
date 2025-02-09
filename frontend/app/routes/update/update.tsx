@@ -1,7 +1,6 @@
 import { useLoaderData, useParams, redirect, NavLink } from "react-router";
 import { client } from "../../treaty";
 import type { Route } from "../../+types/root";
-import { X } from "lucide-react";
 
 export async function loader({ params }: Route.LoaderArgs) {
 	if (!params.id) throw new Error("Survey ID is required.");

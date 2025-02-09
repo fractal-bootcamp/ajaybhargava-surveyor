@@ -77,10 +77,8 @@ const deleteASurvey = async (surveyId: string) => {
 	console.log("Survey deleted successfully.");
 };
 
-const getSurveyResults = async (surveyId: string) => {
-	console.log(surveyId);
-	const results = await db.select().from(answers).where(eq(answers.subquestionId, surveyId));
-	console.log(results);
+const getAnswers = async (subquestionId: string) => {
+	const results = await db.select().from(answers).where(eq(answers.subquestionId, subquestionId));
 	return results;
 };
 
@@ -118,11 +116,6 @@ const app = new Elysia()
 			}),
 		},
 	)
-	.get("/answers/:id", ({ params: { id } }) => getSurveyResults(id), {
-		params: t.Object({
-			id: t.String(),
-		}),
-	})
 	.post(
 		"/update_questions",
 		({ body }) => {
@@ -160,6 +153,11 @@ const app = new Elysia()
 			}),
 		},
 	)
+	.get("/answers/:id", ({ params: { id } }) => getAnswers(id), {
+		params: t.Object({
+			id: t.String(),
+		}),
+	})
 	.use(
 		cors({
 			origin: [

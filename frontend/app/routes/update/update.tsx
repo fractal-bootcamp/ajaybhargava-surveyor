@@ -9,7 +9,10 @@ export async function loader({ params }: Route.LoaderArgs) {
 	if (!response.data) {
 		throw new Error("Failed to load survey!");
 	}
-	return response.data;
+	// If empty, return array with just the surveyId object
+	return response.data.length === 0
+		? [{ surveyId: params.id, id: null, subquestion: null }]
+		: response.data;
 }
 
 export async function action({ request }: Route.ActionArgs) {
@@ -61,24 +64,29 @@ export default function Update({ actionData }: Route.ComponentProps) {
 		<main className="flex items-center justify-center pt-16 pb-4">
 			<div className="flex-1 flex flex-col items-center gap-16 min-h-0">
 				<h1 className="text-6xl">Survey Application</h1>
-				{data.map((question) => (
-					<div
-						key={question.id}
-						className="bg-gray-200 dark:bg-gray-500 rounded-2xl shadow-md p-6 text-2xl dark:text-black flex flex-col justify-between min-w-[600px]"
-					>
-						<div>{question.subquestion}</div>
-						<form method="post" className="flex justify-end gap-4 mt-4">
-							<input type="hidden" name="intent" value="delete" />
-							<input type="hidden" name="questionId" value={question.id} />
-							<button
-								type="submit"
-								className="bg-red-500 hover:bg-red-600 text-white px-2 py-2 rounded-xl appearance-none"
-							>
-								Delete Question
-							</button>
-						</form>
-					</div>
-				))}
+				{data[0].subquestion !== null &&
+					data.map((question) => (
+						<div
+							key={question.id}
+							className="bg-gray-200 dark:bg-gray-500 rounded-2xl shadow-md p-6 text-2xl dark:text-black flex flex-col justify-between min-w-[600px]"
+						>
+							<div>{question.subquestion}</div>
+							<form method="post" className="flex justify-end gap-4 mt-4">
+								<input type="hidden" name="intent" value="delete" />
+								<input
+									type="hidden"
+									name="questionId"
+									value={question.id?.toString()}
+								/>
+								<button
+									type="submit"
+									className="bg-red-500 hover:bg-red-600 text-white px-2 py-2 rounded-xl appearance-none"
+								>
+									Delete Question
+								</button>
+							</form>
+						</div>
+					))}
 				<div className="bg-gray-200 dark:bg-gray-500 rounded-2xl shadow-md p-6 text-2xl dark:text-black flex flex-col justify-between">
 					<form method="post" className="flex flex-col gap-4 min-w-[550px]">
 						<input type="hidden" name="intent" value="add" />

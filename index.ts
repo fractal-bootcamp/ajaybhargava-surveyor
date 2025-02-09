@@ -1,7 +1,7 @@
 import { Elysia, t } from "elysia";
 import "dotenv/config";
 import { drizzle } from "drizzle-orm/node-postgres";
-import { surveys, subquestion, answers } from "./src/db/schema";
+import { surveys, answers, subquestion } from './src/db/schema';
 import { cors } from "@elysiajs/cors";
 import { eq } from "drizzle-orm";
 import { randomUUID } from "node:crypto";
@@ -42,7 +42,6 @@ const getSurveyQuestions = async (id: string) => {
 		.select()
 		.from(subquestion)
 		.where(eq(subquestion.surveyId, id));
-	console.log("Returned data successfully.");
 	return questions;
 };
 
@@ -54,6 +53,21 @@ const addAnswers = async (answer: { subquestionId: string; answer: string }) => 
 		answer: answer.answer.toString(),
 	});
 	console.log("Insertion successful.");
+};
+
+const addANewQuestion = async (question: { surveyId: string, question: string }) => {
+	await db.insert(subquestion).values({
+		id: randomUUID(),
+		surveyId: question.surveyId,
+		subquestion: question.question
+	});
+	console.log("Question added successfully.");
+};
+
+const deleteAQuestion = async (questionId: string) => {
+	await db.delete(answers).where(eq(answers.subquestionId, questionId));
+	await db.delete(subquestion).where(eq(subquestion.id, questionId));
+	console.log("Question deleted successfully.");
 };
 
 const app = new Elysia()
@@ -90,6 +104,31 @@ const app = new Elysia()
 			}),
 		},
 	)
+	.post(
+		"/update_questions",
+		({ body }) => {
+			addANewQuestion(body);
+			return { success: true};
+		},
+		{
+			body: t.Object({
+				surveyId: t.String(),
+				question: t.String(),
+			})
+		}
+	)
+	.delete(
+		"/delete_question",
+		({ body }) => {
+			deleteAQuestion(body.questionId);
+			return { success: true };
+		},
+		{
+			body: t.Object({
+				questionId: t.String(),
+			}),
+		},
+	)
 	.use(
 		cors({
 			origin: [
@@ -103,7 +142,8 @@ const app = new Elysia()
 			credentials: true,
 		}),
 	)
-	.listen(process.env.PORT ?? 3000);
+	// .listen(process.env.PORT ?? 3000);
+	.listen(3000)
 
 console.log(
 	`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,

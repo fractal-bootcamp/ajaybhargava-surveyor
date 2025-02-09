@@ -41,42 +41,49 @@ export default function Results({ actionData }: Route.ComponentProps) {
 	const data = useLoaderData<typeof loader>();
 
 	return (
-		<main className="flex items-center justify-center pt-16 pb-4">
-			<div className="flex-1 flex flex-col items-center gap-16 min-h-0">
-				<h1 className="text-6xl">Survey Results</h1>
+		<main className="container mx-auto px-4 py-8 md:py-16">
+			<div className="flex flex-col items-center gap-8 md:gap-16">
+				<h1 className="text-3xl md:text-5xl lg:text-6xl text-center text-gray-900 dark:text-white">
+					Survey Results
+				</h1>
 
-				{/* Existing answers section */}
-				{Object.entries(data).map(([question, answers]) => (
-					<div
-						key={question}
-						className="bg-gray-200 dark:bg-gray-500 rounded-2xl shadow-md p-6 text-2xl dark:text-black flex flex-col gap-4 w-full max-w-[800px]"
-					>
-						<h2 className="font-semibold">{question}</h2>
-						<div className="flex flex-col gap-2">
-							{answers.length > 0 ? (
-								answers.map((answer) => (
-									<div
-										key={`${question}-${answer}`}
-										className="bg-white rounded-lg p-3 text-xl text-black"
-									>
-										{answer}
-									</div>
-								))
-							) : (
-								<p className="text-gray-600 dark:text-gray-300 italic">
-									No answers yet
-								</p>
-							)}
+				<div className="w-full max-w-2xl space-y-6">
+					{Object.entries(data).map(([question, answers]) => (
+						<div
+							key={question}
+							className="bg-gray-100 dark:bg-gray-800 rounded-lg md:rounded-2xl shadow-md p-4 md:p-6"
+						>
+							<h2 className="text-lg md:text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+								{question}
+							</h2>
+							<div className="space-y-3">
+								{answers.length > 0 ? (
+									answers.map((answer) => (
+										<div
+											key={`${question}-${answer}`}
+											className="bg-white dark:bg-gray-700 rounded-lg p-3 text-base md:text-lg text-gray-900 dark:text-white"
+										>
+											{answer}
+										</div>
+									))
+								) : (
+									<p className="text-gray-600 dark:text-gray-400 italic text-base md:text-lg">
+										No answers yet
+									</p>
+								)}
+							</div>
 						</div>
-					</div>
-				))}
+					))}
+				</div>
 
-				<NavLink
-					to="/"
-					className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl text-xl min-w-[140px] text-center transition-colors"
-				>
-					Return to Surveys
-				</NavLink>
+				<div className="flex flex-col sm:flex-row gap-4">
+					<NavLink
+						to="/"
+						className="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg text-base md:text-lg font-medium text-center transition-colors"
+					>
+						Back to Surveys
+					</NavLink>
+				</div>
 			</div>
 		</main>
 	);

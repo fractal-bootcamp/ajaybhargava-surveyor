@@ -13,61 +13,68 @@ export interface SurveyProps {
 
 export function Surveys({ survey }: SurveyProps) {
 	return (
-		<main className="flex items-center justify-center pt-16 pb-4">
-			<div className="flex-1 flex flex-col items-center gap-16 min-h-0">
-				<h1 className="text-6xl">Survey Application</h1>
-				{survey.map((item) => (
-					<div
-						className="bg-gray-200 dark:bg-gray-500 rounded-2xl shadow-md p-6 text-2xl dark:text-black flex flex-col justify-between"
-						key={item.id}
-					>
-						<p className="flex-grow">{item.question}</p>
-						<div className="flex justify-center gap-4 mt-4">
-							<NavLink
-								to={`/surveys/${item.id}/run`}
-								className={({ isActive }) =>
-									`${isActive ? "bg-blue-600" : "bg-blue-500 hover:bg-blue-600"} text-white px-4 py-2 rounded-xl text-xl min-w-[140px] text-center`
-								}
-							>
-								Run Survey
-							</NavLink>
-							<NavLink
-								to={`/surveys/${item.id}/results`}
-								className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl text-xl min-w-[140px] text-center"
-							>
-								See Results
-							</NavLink>
-							<NavLink
-								to={`/surveys/${item.id}/update`}
-								className={({ isActive }) =>
-									`${isActive ? "bg-orange-600" : "bg-orange-500 hover:bg-orange-600"} text-white px-4 py-2 rounded-xl text-xl min-w-[140px] text-center`
-								}
-							>
-								Update Questions
-							</NavLink>
-							{/* TODO: Add delete survey functionality */}
-							<form
-								method="post"
-								action={`/surveys/${item.id}/delete`}
-								className="flex justify-center"
-							>
-								<input type="hidden" name="intent" value="delete" />
-								<input type="hidden" name="surveyId" value={item.id} />
-								<button
-									type="submit"
-									className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl text-xl min-w-[140px] text-center appearance-none"
+		<main className="container mx-auto px-4 py-8 md:py-16">
+			<div className="flex flex-col items-center gap-8 md:gap-16">
+				<h1 className="text-3xl md:text-5xl lg:text-6xl text-center text-gray-900 dark:text-white">
+					Survey Application
+				</h1>
+
+				<div className="w-full max-w-4xl space-y-6">
+					{survey.map((item) => (
+						<div
+							key={item.id}
+							className="bg-gray-100 dark:bg-gray-800 rounded-lg md:rounded-2xl shadow-md p-4 md:p-6"
+						>
+							<p className="mb-6 text-gray-900 dark:text-white">
+								{item.question}
+							</p>
+							<div className="flex flex-col sm:flex-row gap-3 sm:gap-4 flex-wrap justify-center">
+								<NavLink
+									to={`/surveys/${item.id}/run`}
+									className={({ isActive }) =>
+										`${isActive ? "bg-blue-600" : "bg-blue-500 hover:bg-blue-600"} text-white px-4 py-2 rounded-lg text-base md:text-lg w-full sm:w-auto text-center transition-colors`
+									}
 								>
-									Delete Survey
-								</button>
-							</form>
+									Run Survey
+								</NavLink>
+								<NavLink
+									to={`/surveys/${item.id}/results`}
+									className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-base md:text-lg w-full sm:w-auto text-center transition-colors"
+								>
+									See Results
+								</NavLink>
+								<NavLink
+									to={`/surveys/${item.id}/update`}
+									className={({ isActive }) =>
+										`${isActive ? "bg-orange-600" : "bg-orange-500 hover:bg-orange-600"} text-white px-4 py-2 rounded-lg text-base md:text-lg w-full sm:w-auto text-center transition-colors`
+									}
+								>
+									Update
+								</NavLink>
+								<form
+									method="post"
+									action={`/surveys/${item.id}/delete`}
+									className="w-full sm:w-auto"
+								>
+									<input type="hidden" name="intent" value="delete" />
+									<input type="hidden" name="surveyId" value={item.id} />
+									<button
+										type="submit"
+										className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-base md:text-lg w-full transition-colors"
+									>
+										Delete
+									</button>
+								</form>
+							</div>
 						</div>
-					</div>
-				))}
+					))}
+				</div>
+
 				<NavLink
 					to={"/surveys/new"}
-					className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl text-xl min-w-[140px] text-center"
+					className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg text-lg md:text-xl text-center transition-colors fixed bottom-6 right-6 shadow-lg"
 				>
-					Create a new Survey
+					+ New Survey
 				</NavLink>
 			</div>
 		</main>

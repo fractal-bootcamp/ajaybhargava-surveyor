@@ -43,42 +43,48 @@ export default function New({ actionData }: Route.ComponentProps) {
 	const { id } = useParams<{ id: string }>();
 
 	return (
-		<main className="flex items-center justify-center pt-16 pb-4">
-			<div className="flex-1 flex flex-col items-center gap-16 min-h-0">
-				<h1 className="text-6xl">Survey Application</h1>
-				<form
-					method="post"
-					className="flex flex-col gap-8 w-full max-w-[800px]"
-				>
+		<main className="container mx-auto px-4 py-8 md:py-16">
+			<div className="flex flex-col items-center gap-8 md:gap-16">
+				<h1 className="text-3xl md:text-5xl lg:text-6xl text-center text-gray-900 dark:text-white">
+					Take Survey
+				</h1>
+
+				<form method="post" className="w-full max-w-2xl space-y-6">
 					{data.map((question) => (
 						<div
 							key={question.id}
-							className="bg-gray-200 dark:bg-gray-500 rounded-2xl shadow-md p-6 text-2xl dark:text-black flex flex-col justify-between min-w-[600px]"
+							className="bg-gray-100 dark:bg-gray-800 rounded-lg md:rounded-2xl shadow-md p-4 md:p-6"
 						>
-							<label htmlFor={question.id} className="text-xl">
+							<label
+								htmlFor={question.id}
+								className="block text-lg md:text-xl mb-3 font-medium text-gray-900 dark:text-white"
+							>
 								{question.subquestion}
 							</label>
 							<input
 								type="text"
 								name={question.id}
 								id={question.id}
-								className="p-2 rounded-lg text-black text-xl bg-white"
+								className="w-full p-3 rounded-lg text-gray-900 text-base md:text-lg bg-white border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition-colors"
 								required
+								placeholder="Type your answer here..."
 							/>
 						</div>
 					))}
-					<div className="flex gap-4 justify-center">
+
+					<div className="flex flex-col sm:flex-row gap-4 pt-4">
 						<button
 							type="submit"
-							className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl text-xl min-w-[140px] text-center transition-colors"
+							className="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg text-base md:text-lg font-medium transition-colors"
 						>
 							Submit Survey
 						</button>
+
 						<NavLink
 							to={"/"}
-							className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl text-xl min-w-[140px] text-center transition-colors"
+							className="w-full sm:w-auto bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg text-base md:text-lg font-medium text-center transition-colors"
 						>
-							Return to Forms
+							Cancel
 						</NavLink>
 					</div>
 				</form>

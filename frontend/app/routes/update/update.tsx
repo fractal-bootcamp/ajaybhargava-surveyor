@@ -59,60 +59,80 @@ export function meta() {
 export default function Update({ actionData }: Route.ComponentProps) {
 	const data = useLoaderData<typeof loader>();
 	const surveyId = data[0].surveyId;
+
 	return (
-		<main className="flex items-center justify-center pt-16 pb-4">
-			<div className="flex-1 flex flex-col items-center gap-16 min-h-0">
-				<h1 className="text-6xl">Survey Application</h1>
-				{data[0].subquestion !== null &&
-					data.map((question) => (
-						<div
-							key={question.id}
-							className="bg-gray-200 dark:bg-gray-500 rounded-2xl shadow-md p-6 text-2xl dark:text-black flex flex-col justify-between min-w-[600px]"
-						>
-							<div>{question.subquestion}</div>
-							<form method="post" className="flex justify-end gap-4 mt-4">
-								<input type="hidden" name="intent" value="delete" />
+		<main className="container mx-auto px-4 py-8 md:py-16">
+			<div className="flex flex-col items-center gap-8 md:gap-16">
+				<h1 className="text-3xl md:text-5xl lg:text-6xl text-center text-gray-900 dark:text-white">
+					Update Survey
+				</h1>
+
+				<div className="w-full max-w-2xl space-y-6">
+					{data[0].subquestion !== null &&
+						data.map((question) => (
+							<div
+								key={question.id}
+								className="bg-gray-100 dark:bg-gray-800 rounded-lg md:rounded-2xl shadow-md p-4 md:p-6"
+							>
+								<div className="text-lg md:text-xl mb-4 text-gray-900 dark:text-white">
+									{question.subquestion}
+								</div>
+								<form method="post" className="flex justify-end">
+									<input type="hidden" name="intent" value="delete" />
+									<input
+										type="hidden"
+										name="questionId"
+										value={question.id?.toString()}
+									/>
+									<button
+										type="submit"
+										className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-base md:text-lg font-medium transition-colors"
+									>
+										Delete
+									</button>
+								</form>
+							</div>
+						))}
+
+					<div className="bg-gray-100 dark:bg-gray-800 rounded-lg md:rounded-2xl shadow-md p-4 md:p-6">
+						<form method="post" className="space-y-4">
+							<input type="hidden" name="intent" value="add" />
+							<div className="space-y-2">
+								<label
+									htmlFor="AddQuestion"
+									className="block text-lg md:text-xl font-medium text-gray-900 dark:text-white"
+								>
+									Add a Question
+								</label>
 								<input
-									type="hidden"
-									name="questionId"
-									value={question.id?.toString()}
+									type="text"
+									name={surveyId?.toString()}
+									id={surveyId?.toString()}
+									className="w-full p-3 rounded-lg text-gray-900 text-base md:text-lg bg-white border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition-colors"
+									required
+									placeholder="Type your question here..."
 								/>
+							</div>
+							<div className="pt-2">
 								<button
 									type="submit"
-									className="bg-red-500 hover:bg-red-600 text-white px-2 py-2 rounded-xl appearance-none"
+									className="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg text-base md:text-lg font-medium transition-colors"
 								>
-									Delete Question
+									Add Question
 								</button>
-							</form>
-						</div>
-					))}
-				<div className="bg-gray-200 dark:bg-gray-500 rounded-2xl shadow-md p-6 text-2xl dark:text-black flex flex-col justify-between">
-					<form method="post" className="flex flex-col gap-4 min-w-[550px]">
-						<input type="hidden" name="intent" value="add" />
-						<label htmlFor="AddQuestion" className="text-xl">
-							Add a Question
-						</label>
-						<input
-							type="text"
-							name={surveyId?.toString()}
-							id={surveyId?.toString()}
-							className="p-2 rounded-lg text-black text-xl bg-white"
-							required
-						/>
-						<button
-							type="submit"
-							className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl text-xl"
-						>
-							Add Question
-						</button>
-					</form>
+							</div>
+						</form>
+					</div>
 				</div>
-				<NavLink
-					to={"/"}
-					className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-4 rounded-xl text-xl min-w-[140px] text-center mb-10"
-				>
-					Return to Forms
-				</NavLink>
+
+				<div className="flex flex-col sm:flex-row gap-4">
+					<NavLink
+						to={"/"}
+						className="w-full sm:w-auto bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg text-base md:text-lg font-medium text-center transition-colors"
+					>
+						Back to Surveys
+					</NavLink>
+				</div>
 			</div>
 		</main>
 	);

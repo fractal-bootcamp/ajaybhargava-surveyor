@@ -28,7 +28,7 @@ export async function action({ request }: Route.ActionArgs) {
 	if (!response.every((r) => r.data?.success)) {
 		throw new Error("Failed to Create Survey!");
 	}
-	redirect("/");
+	return redirect("/");
 }
 
 export function meta() {

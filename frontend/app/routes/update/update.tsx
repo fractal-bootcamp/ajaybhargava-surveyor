@@ -72,9 +72,9 @@ export default function Update({ actionData }: Route.ComponentProps) {
 							<input type="hidden" name="questionId" value={question.id} />
 							<button
 								type="submit"
-								className="bg-red-500 hover:bg-red-600 text-white px-4 py-4 rounded appearance-none"
+								className="bg-red-500 hover:bg-red-600 text-white px-2 py-2 rounded-xl appearance-none"
 							>
-								<X className="w-6 h-6" />
+								Delete Question
 							</button>
 						</form>
 					</div>

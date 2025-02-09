@@ -70,6 +70,20 @@ const deleteAQuestion = async (questionId: string) => {
 	console.log("Question deleted successfully.");
 };
 
+const deleteASurvey = async (surveyId: string) => {
+	await db.delete(answers).where(eq(answers.subquestionId, surveyId));
+	await db.delete(subquestion).where(eq(subquestion.surveyId, surveyId));
+	await db.delete(surveys).where(eq(surveys.id, surveyId));
+	console.log("Survey deleted successfully.");
+};
+
+const getSurveyResults = async (surveyId: string) => {
+	console.log(surveyId);
+	const results = await db.select().from(answers).where(eq(answers.subquestionId, surveyId));
+	console.log(results);
+	return results;
+};
+
 const app = new Elysia()
 	.get("/", () => "Hello Elysia")
 	.get("/surveys", () => getAllSurveys())
@@ -104,6 +118,11 @@ const app = new Elysia()
 			}),
 		},
 	)
+	.get("/answers/:id", ({ params: { id } }) => getSurveyResults(id), {
+		params: t.Object({
+			id: t.String(),
+		}),
+	})
 	.post(
 		"/update_questions",
 		({ body }) => {
@@ -126,6 +145,18 @@ const app = new Elysia()
 		{
 			body: t.Object({
 				questionId: t.String(),
+			}),
+		},
+	)
+	.delete(
+		"/surveys/:id",
+		({ params: { id } }) => {
+			deleteASurvey(id);
+			return { success: true };
+		},
+		{
+			params: t.Object({
+				id: t.String(),
 			}),
 		},
 	)

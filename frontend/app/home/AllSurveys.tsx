@@ -46,9 +46,9 @@ export function Surveys({ survey }: SurveyProps) {
 								Update Questions
 							</NavLink>
 							{/* TODO: Add delete survey functionality */}
-							{/* <form
+							<form
 								method="post"
-								action="/surveys/delete"
+								action={`/surveys/${item.id}/delete`}
 								className="flex justify-center"
 							>
 								<input type="hidden" name="intent" value="delete" />
@@ -59,7 +59,7 @@ export function Surveys({ survey }: SurveyProps) {
 								>
 									Delete Survey
 								</button>
-							</form> */}
+							</form>
 						</div>
 					</div>
 				))}

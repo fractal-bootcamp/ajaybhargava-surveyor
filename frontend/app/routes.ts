@@ -6,7 +6,9 @@ export default [
     ...prefix("/surveys", [
         route(":id/run", "routes/run/run.tsx"),
         route("/new", "routes/new/new.tsx"),
-        route(":id/update", "routes/update/update.tsx")
+        route(":id/update", "routes/update/update.tsx"),
+        route(":id/delete", "routes/delete/delete.tsx"),
+        route(":id/results", "routes/results/results.tsx"),
     ])
 ] satisfies RouteConfig;
 

@@ -9,16 +9,9 @@ type Survey = {
 
 export interface SurveyProps {
 	survey: Survey[];
-	onDelete?: (id: string) => void;
 }
 
-export function Surveys({ survey, onDelete }: SurveyProps) {
-	const handleDelete = (id: string) => {
-		if (onDelete) {
-			onDelete(id);
-		}
-	};
-
+export function Surveys({ survey }: SurveyProps) {
 	return (
 		<main className="flex items-center justify-center pt-16 pb-4">
 			<div className="flex-1 flex flex-col items-center gap-16 min-h-0">
@@ -52,13 +45,21 @@ export function Surveys({ survey, onDelete }: SurveyProps) {
 							>
 								Update Questions
 							</NavLink>
-							<button
-								type="button"
-								onClick={() => handleDelete(item.id)}
-								className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl text-xl min-w-[140px] text-center appearance-none"
+							{/* TODO: Add delete survey functionality */}
+							<form
+								method="post"
+								action={`/surveys/${item.id}/delete`}
+								className="flex justify-center"
 							>
-								Delete Survey
-							</button>
+								<input type="hidden" name="intent" value="delete" />
+								<input type="hidden" name="surveyId" value={item.id} />
+								<button
+									type="submit"
+									className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl text-xl min-w-[140px] text-center appearance-none"
+								>
+									Delete Survey
+								</button>
+							</form>
 						</div>
 					</div>
 				))}

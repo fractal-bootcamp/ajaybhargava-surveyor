@@ -27,7 +27,7 @@ export async function action({ request }: Route.ActionArgs) {
 		throw new Error("Failed to Create Survey!");
 	}
 
-	redirect("/");
+	return redirect("/");
 }
 
 export default function New({ actionData }: Route.ComponentProps) {

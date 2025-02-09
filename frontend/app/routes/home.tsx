@@ -11,8 +11,8 @@ export async function loader() {
 // biome-ignore lint/correctness/noEmptyPattern: <explanation>
 export function meta({}: Route.MetaArgs) {
 	return [
-		{ title: "New React Router App" },
-		{ name: "description", content: "Welcome to React Router!" },
+		{ title: "Ajay's Survey App" },
+		{ name: "description", content: "Just a simple Survey V7 Router App!" },
 	];
 }
 
